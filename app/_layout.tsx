@@ -6,6 +6,7 @@ import { useSubscriptionStore } from '@/store/subscription-store';
 import { usePremiumStore } from '@/store/premium-store';
 import { initPurchases } from '@/lib/purchases';
 import { preloadInterstitial } from '@/lib/ads';
+import { requestTrackingPermission } from '@/lib/tracking';
 import { requestNotificationPermissions } from '@/lib/notifications';
 
 function AppInit() {
@@ -13,13 +14,16 @@ function AppInit() {
   const { loadStatus, startListening } = usePremiumStore();
 
   useEffect(() => {
-    load();
-    initPurchases().then(() => {
+    async function init() {
+      load();
+      await requestTrackingPermission();
+      await initPurchases();
       loadStatus();
       startListening();
-    });
-    preloadInterstitial();
-    requestNotificationPermissions();
+      preloadInterstitial();
+      requestNotificationPermissions();
+    }
+    init();
   }, []);
 
   return null;

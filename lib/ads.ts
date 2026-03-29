@@ -5,17 +5,27 @@ import {
   TestIds,
 } from 'react-native-google-mobile-ads';
 
-const INTERSTITIAL_ID = Platform.select({
-  ios: TestIds.INTERSTITIAL,
-  android: TestIds.INTERSTITIAL,
-  default: TestIds.INTERSTITIAL,
-});
+// Production ad unit IDs — replace with real IDs from AdMob console
+const PRODUCTION_ADS = {
+  BANNER: Platform.select({
+    ios: 'ca-app-pub-XXXXXXXXXXXXXXXX/YYYYYYYYYY',
+    android: 'ca-app-pub-XXXXXXXXXXXXXXXX/YYYYYYYYYY',
+    default: '',
+  }),
+  INTERSTITIAL: Platform.select({
+    ios: 'ca-app-pub-XXXXXXXXXXXXXXXX/YYYYYYYYYY',
+    android: 'ca-app-pub-XXXXXXXXXXXXXXXX/YYYYYYYYYY',
+    default: '',
+  }),
+};
 
-export const BANNER_ID = Platform.select({
-  ios: TestIds.ADAPTIVE_BANNER,
-  android: TestIds.ADAPTIVE_BANNER,
-  default: TestIds.ADAPTIVE_BANNER,
-});
+const INTERSTITIAL_ID = __DEV__
+  ? TestIds.INTERSTITIAL
+  : (PRODUCTION_ADS.INTERSTITIAL ?? TestIds.INTERSTITIAL);
+
+export const BANNER_ID = __DEV__
+  ? TestIds.ADAPTIVE_BANNER
+  : (PRODUCTION_ADS.BANNER ?? TestIds.ADAPTIVE_BANNER);
 
 let interstitial: InterstitialAd | null = null;
 let isInterstitialLoaded = false;

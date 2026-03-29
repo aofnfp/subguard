@@ -17,12 +17,12 @@ let isConfigured = false;
 export async function initPurchases(): Promise<void> {
   if (isConfigured || Platform.OS === 'web') return;
   try {
-    Purchases.setLogLevel(LOG_LEVEL.DEBUG);
+    if (__DEV__) Purchases.setLogLevel(LOG_LEVEL.DEBUG);
     const apiKey = Platform.OS === 'ios' ? REVENUECAT_IOS_KEY : REVENUECAT_ANDROID_KEY;
     await Purchases.configure({ apiKey });
     isConfigured = true;
   } catch (e) {
-    console.warn('RevenueCat init failed:', e);
+    if (__DEV__) console.warn('RevenueCat init failed:', e);
   }
 }
 
