@@ -44,6 +44,13 @@ export default function EditScreen() {
   const curr = CURRENCIES.find((c) => c.code === currency);
   const symbol = curr?.symbol || currency;
 
+  const isValidDate = (d: string) => {
+    const match = d.match(/^\d{4}-\d{2}-\d{2}$/);
+    if (!match) return false;
+    const date = new Date(d + 'T00:00:00');
+    return !isNaN(date.getTime());
+  };
+
   const handleSave = async () => {
     if (!name.trim()) {
       Alert.alert('Missing name', 'Please enter a subscription name.');
@@ -52,6 +59,10 @@ export default function EditScreen() {
     const parsedCost = parseFloat(cost);
     if (isNaN(parsedCost) || parsedCost <= 0) {
       Alert.alert('Invalid cost', 'Please enter a valid amount.');
+      return;
+    }
+    if (!isValidDate(nextRenewalDate)) {
+      Alert.alert('Invalid date', 'Please enter a valid date in YYYY-MM-DD format.');
       return;
     }
 
@@ -198,12 +209,21 @@ export default function EditScreen() {
         {/* Next Renewal Date */}
         <Text style={[styles.label, { color: colors.textSecondary }]}>Next Renewal Date</Text>
         <TextInput
-          style={[styles.input, { color: colors.textPrimary, backgroundColor: colors.surface, borderColor: colors.outline }]}
+          style={[
+            styles.input,
+            { color: colors.textPrimary, backgroundColor: colors.surface, borderColor: colors.outline },
+            nextRenewalDate.length > 0 && !isValidDate(nextRenewalDate) && { borderColor: colors.danger },
+          ]}
           placeholder="YYYY-MM-DD"
           placeholderTextColor={colors.textSecondary}
           value={nextRenewalDate}
           onChangeText={setNextRenewalDate}
         />
+        {nextRenewalDate.length > 0 && !isValidDate(nextRenewalDate) && (
+          <Text style={{ color: colors.danger, fontSize: 12, marginTop: 4 }}>
+            Enter a valid date (YYYY-MM-DD)
+          </Text>
+        )}
 
         {/* Color */}
         <Text style={[styles.label, { color: colors.textSecondary }]}>Color</Text>

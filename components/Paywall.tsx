@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   Modal,
+  Alert,
 } from 'react-native';
 import { X, Crown, Check } from 'lucide-react-native';
 import { useTheme } from '@/store/theme-context';
@@ -31,7 +32,11 @@ export default function Paywall({ visible, onClose }: PaywallProps) {
 
   const handleBuy = async (type: 'monthly' | 'annual') => {
     const success = type === 'monthly' ? await buyMonthly() : await buyAnnual();
-    if (success) onClose();
+    if (success) {
+      onClose();
+    } else {
+      Alert.alert('Purchase failed', 'Something went wrong. Please try again later.');
+    }
   };
 
   return (

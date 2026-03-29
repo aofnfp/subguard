@@ -43,7 +43,7 @@ export default function AnalyticsScreen() {
     byCycle[sub.billingCycle] = (byCycle[sub.billingCycle] || 0) + m;
   }
   const cycleData = Object.entries(byCycle).map(([cycle, value], i) => ({
-    label: cycle.charAt(0).toUpperCase() + cycle.slice(0, 5),
+    label: cycle.charAt(0).toUpperCase() + cycle.slice(1),
     value,
     color: CATEGORY_COLORS[i % CATEGORY_COLORS.length],
   }));

@@ -10,8 +10,14 @@ const KEYS = {
 
 export const storage = {
   async getSubscriptions(): Promise<Subscription[]> {
-    const data = await AsyncStorage.getItem(KEYS.subscriptions);
-    return data ? JSON.parse(data) : [];
+    try {
+      const data = await AsyncStorage.getItem(KEYS.subscriptions);
+      if (!data) return [];
+      const parsed = JSON.parse(data);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
   },
 
   async saveSubscriptions(subs: Subscription[]): Promise<void> {
