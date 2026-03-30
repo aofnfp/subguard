@@ -1,0 +1,11 @@
+SubGuard is a privacy-first subscription tracker that helps you manage all your recurring expenses in one place. Know exactly what you're paying for, when renewals are due, and how much you're spending.
+
+Features:
+• Track all subscriptions and recurring payments
+• Renewal reminders before you're charged
+• Monthly and annual spending summaries
+• Categorize subscriptions by type
+• 100% private — no account, no cloud sync required
+• Multi-currency support
+
+Built by the Abraham Oladotun Foundation NFP.
