@@ -96,6 +96,10 @@ export default function SettingsScreen() {
         <Text style={[styles.version, { color: colors.textSecondary }]}>
           SubGuard v1.0.0 · Privacy-first
         </Text>
+
+        <Text style={[styles.brandingText, { color: colors.textSecondary }]}>
+          App by aoftech
+        </Text>
       </ScrollView>
 
       {/* Currency picker */}
@@ -163,6 +167,7 @@ const styles = StyleSheet.create({
   rowValue: { fontSize: 14 },
   activeDot: { width: 8, height: 8, borderRadius: 4 },
   version: { fontSize: 13, textAlign: 'center', marginTop: 20 },
+  brandingText: { fontSize: 11, textAlign: 'center', marginTop: 24, opacity: 0.6 },
   modalOverlay: { flex: 1, justifyContent: 'flex-end' },
   modalSheet: { borderTopLeftRadius: 24, borderTopRightRadius: 24, maxHeight: '60%', paddingBottom: 30 },
   modalHeader: {
